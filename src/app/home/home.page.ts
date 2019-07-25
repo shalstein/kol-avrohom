@@ -1,27 +1,27 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import {DafYomiCalculaterService} from '../services/day-yomi-calculater/daf-yomi-calculater.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   isDafYomiCurrentTab = true;
   todaysTractate = {};
   yesterdaysTractate = {};
   tomorrowsTractate = {};
-  // constructor(public navCtrl: NavController, private dafYomiCalculater : DafYomiCalculaterProvider) {
-  // }
+  constructor(private dafYomiCalculater: DafYomiCalculaterService) {
+  }
   sedarim = ['זרעים', 'מועד', 'נשים', 'נזקין', 'קדשים', 'טהרות' ];
 
   handleSederClick = (seder) => {
     console.log('clicked ' + seder);
     // this.navCtrl.push(TractatesPage, {seder: seder});
   }
-  ionViewDidLoad = () => {
-    // this.todaysTractate = this.dafYomiCalculater.calculateDafYomiToday(0);
-    // this.yesterdaysTractate = this.dafYomiCalculater.calculateDafYomiToday(-1);
-    // this.tomorrowsTractate = this.dafYomiCalculater.calculateDafYomiToday(1);
+  ngOnInit() {
+    this.todaysTractate = this.dafYomiCalculater.calculateDafYomiToday(0);
+    this.yesterdaysTractate = this.dafYomiCalculater.calculateDafYomiToday(-1);
+    this.tomorrowsTractate = this.dafYomiCalculater.calculateDafYomiToday(1);
   }
 
 
