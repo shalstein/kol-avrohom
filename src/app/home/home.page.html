@@ -35,7 +35,7 @@
 
 
 <ion-content id="content" >
-  <ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment value="dafYomi" (ionChange)="handleSegementChange($event)">
     <ion-segment-button id="dafYomi" value="dafYomi">
       <ion-label> <strong> DAF YOMI</strong></ion-label>
     </ion-segment-button>
@@ -44,14 +44,14 @@
     </ion-segment-button>
   </ion-segment>
 
-<!--
-    <ion-list *ngIf="!isDafYomiCurrentTab">
-         <ion-item padding-right padding-left text-center  block outline (click)="handleSederClick(seder)" *ngFor="let seder of sedarim"  >
+
+    <ion-list lines='full' *ngIf="!isDafYomiCurrentTab">
+         <ion-item text-center padding-right padding-left ion-item text-center  block outline   (click)="handleSederClick(seder)" *ngFor="let seder of sedarim"  >
               <ion-label><strong>{{ seder }}</strong></ion-label>
         </ion-item>  
     </ion-list>
-  -->
-    <ion-list *ngIf="true">
+ 
+    <ion-list *ngIf="isDafYomiCurrentTab">
       <div class="daf-yomi-button-container" >
         <ion-button expand='block' fill='outline' color='success' (click)="handleDafYomiButtonClick(todaysTractate)" name='today'><strong>Today's Daf - {{todaysTractate.tractateName}} {{todaysTractate.pageNumber | gematria}} </strong></ion-button>
         
@@ -61,29 +61,3 @@
         </div>
     </ion-list>
   </ion-content>
-
-
-  <!-- </ion-content>
-  
-  <ion-footer>
-    <ion-toolbar>
-      <ion-buttons id="footer-buttons"  >
-
-        <ion-button icon-end color="royal">
-          About
-          <ion-icon name="information-circle"></ion-icon>
-        </ion-button>
-
-        <ion-button icon-end color="royal">
-             Phone Numbers
-            <ion-icon name="call"></ion-icon>
-        </ion-button>
-
-
-        <ion-button icon-end color="royal">
-          Email
-          <ion-icon name="mail"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer> -->

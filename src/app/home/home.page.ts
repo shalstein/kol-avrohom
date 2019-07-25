@@ -26,12 +26,12 @@ export class HomePage implements OnInit {
 
 
 
-   handleTabClick = (button) => {
-    //  if (button._elementRef.nativeElement.name === 'dafYomi') {
-    //  this.isDafYomiCurrentTab = true;
-    // } else {
-    //    this.isDafYomiCurrentTab = false;
-    //  }
+   handleSegementChange = (ev: any)  => {
+     if (ev.detail.value === 'dafYomi') {
+     this.isDafYomiCurrentTab = true;
+    } else {
+       this.isDafYomiCurrentTab = false;
+    }
    }
 
    handleDafYomiButtonClick = (tractate ): void => {

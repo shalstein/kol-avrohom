@@ -1,7 +1,4 @@
-// #footer-buttons {
-//     display: flex;
-//     justify-content: space-evenly;
-// }
+
 // .button-container {
 //     display: flex;
 //     background-color: rgb(248, 248, 248);
@@ -40,9 +37,9 @@
 
 // }
 
-// ion-segment {
-//     padding: 5px;
-//   }
+.ios ion-segment {
+    padding: 0.4em;
+  }
 
 .md ion-segment-button {
     background-color: whitesmoke;
@@ -51,14 +48,12 @@
 }
 
 
-
-button::-moz-focus-inner {
-    border: 0;
-  }
-  
-  
-
  .md #dafYomi {
     border-right: 0.1em solid rgba(0, 0, 0, 0.3);
 
+ }
+
+ ion-list {
+     padding-left: 1em;
+     padding-right: 1em;
  }
