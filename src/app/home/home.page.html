@@ -15,7 +15,7 @@
       </ion-item>
       <ion-item>
           <ion-icon color="royal" name="mail" slot="start"></ion-icon>
-          <ion-label>email</ion-label>
+          <ion-label>Email</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>
@@ -35,43 +35,32 @@
 
 
 <ion-content id="content" >
-  <!-- <div id='custom-segement'>
-      <div id='toolbar-border'></div>
-      <div class="button-container">
-        <ion-button #dafYomi [style.border-bottom-color]=" isDafYomiCurrentTab ? 'blue' : 'transparent'"  (click)='handleTabClick(dafYomi)' color='primary' expand='full'  fill='clear' id="daf-yomi">
-        DAF YOMI
-      </ion-button>
-      <div id="button-divider"></div>
-      <ion-button #selectDaf [style.border-bottom-color]="!isDafYomiCurrentTab ? 'blue' : 'transparent'" (click)='handleTabClick(selectDaf)' color='primary' expand='full' fill='clear'  id="select-daf" >
-        SELECT A DAF
-      </ion-button>
-
-    </div>
-</div> -->
-
   <ion-segment (ionChange)="segmentChanged($event)">
     <ion-segment-button id="dafYomi" value="dafYomi">
-      <ion-label>DAF YOMI</ion-label>
+      <ion-label> <strong> DAF YOMI</strong></ion-label>
     </ion-segment-button>
     <ion-segment-button value="selectDaf">
-      <ion-label>SELECT A DAF</ion-label>
+      <ion-label><strong> SELECT A DAF </strong></ion-label>
     </ion-segment-button>
   </ion-segment>
 
-</ion-content>
 <!--
     <ion-list *ngIf="!isDafYomiCurrentTab">
          <ion-item padding-right padding-left text-center  block outline (click)="handleSederClick(seder)" *ngFor="let seder of sedarim"  >
               <ion-label><strong>{{ seder }}</strong></ion-label>
         </ion-item>  
     </ion-list>
-    <ion-list *ngIf="isDafYomiCurrentTab">
+  -->
+    <ion-list *ngIf="true">
       <div class="daf-yomi-button-container" >
-        <ion-button block outline color='secondary' (click)="handleDafYomiButtonClick(todaysTractate)" name='today'><strong>Today's Daf - {{todaysTractate.tractateName}} {{todaysTractate.pageNumber | gematria}} </strong></ion-button>
-        <ion-button block outline color='secondary' (click)="handleDafYomiButtonClick(tomorrowsTractate)"  name='tomorrow'><strong>Tomorrow's Daf - {{tomorrowsTractate.tractateName}} {{tomorrowsTractate.pageNumber | gematria }} </strong></ion-button>
-        <ion-button block outline color='secondary' (click)="handleDafYomiButtonClick(yesterdaysTractate)"  name='yesterday'><strong>Yeseterday's Daf - {{yesterdaysTractate.tractateName}} {{yesterdaysTractate.pageNumber | gematria }}</strong></ion-button> 
+        <ion-button expand='block' fill='outline' color='success' (click)="handleDafYomiButtonClick(todaysTractate)" name='today'><strong>Today's Daf - {{todaysTractate.tractateName}} {{todaysTractate.pageNumber | gematria}} </strong></ion-button>
+        
+        <ion-button expand='block' fill='outline' color='success' (click)="handleDafYomiButtonClick(tomorrowsTractate)"  name='tomorrow'><strong>Tomorrow's Daf - {{tomorrowsTractate.tractateName}} {{tomorrowsTractate.pageNumber | gematria }} </strong></ion-button>
+
+        <ion-button expand='block' fill='outline' color='success' (click)="handleDafYomiButtonClick(yesterdaysTractate)"  name='yesterday'><strong>Yeseterday's Daf - {{yesterdaysTractate.tractateName}} {{yesterdaysTractate.pageNumber | gematria }}</strong></ion-button> 
         </div>
-    </ion-list> -->
+    </ion-list>
+  </ion-content>
 
 
   <!-- </ion-content>
