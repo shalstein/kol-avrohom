@@ -1,12 +1,40 @@
-<ion-header>
-  <ion-toolbar color='primary' >
-    <ion-title>
-      Kol Avrohom
-    </ion-title>
-  </ion-toolbar>
+<ion-menu content-id="content"  side="start" menuId="first">
+    <ion-header>
+        <ion-toolbar color='primary' >
+        </ion-toolbar>
+    </ion-header>
+  <ion-content> 
+    <ion-list>
+      <ion-item>
+          <ion-icon name="information-circle" color="royal" slot="start"></ion-icon>
+          <ion-label>About</ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-icon color="royal"  name="call" slot="start"></ion-icon>
+          <ion-label>Phone Numbers</ion-label>
+      </ion-item>
+      <ion-item>
+          <ion-icon color="royal" name="mail" slot="start"></ion-icon>
+          <ion-label>email</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-</ion-header>
-<ion-content>
+<ion-header>
+    <ion-toolbar color='primary' >
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Kol Avrohom
+      </ion-title>
+    </ion-toolbar>
+  
+  </ion-header>
+
+
+<ion-content id="content" >
   <!-- <div id='custom-segement'>
       <div id='toolbar-border'></div>
       <div class="button-container">
@@ -31,7 +59,6 @@
   </ion-segment>
 
 </ion-content>
-
 <!--
     <ion-list *ngIf="!isDafYomiCurrentTab">
          <ion-item padding-right padding-left text-center  block outline (click)="handleSederClick(seder)" *ngFor="let seder of sedarim"  >
