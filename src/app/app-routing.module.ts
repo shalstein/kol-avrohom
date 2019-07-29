@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'tractate/:name', loadChildren: './tractate/tractate.module#TractatePageModule' },
   { path: 'tractate/:name/:pageNumber', loadChildren: './tractate/tractate.module#TractatePageModule' },
   { path: 'tractates/:seder', loadChildren: './tractates/tractates.module#TractatesPageModule' },
+  { path: 'about', loadChildren: './about/about.module#AboutPageModule' },
 ];
 
 @NgModule({
