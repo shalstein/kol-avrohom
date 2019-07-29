@@ -16,15 +16,8 @@ export class TractatesPage implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    //  const seder$: Observable<string> = this.route.params.pipe(map(p => p.seder));
-
      const seder: string = this.route.snapshot.params.seder;
      this.currentSeder = seder;
-
-    //  this.routeSubscription = seder$.subscribe({next: (seder) => {
-    //   this.currentSeder = seder;
-    //   this.changeDetector.markForCheck();
-    //   }});
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>tractate</ion-title>
   </ion-toolbar>
@@ -6,4 +6,70 @@
 
 <ion-content>
 
+</ion-content>
+ -->
+
+
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title><h2>{{tractate}}</h2></ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+
+<ion-menu content-id="tractates-content"  side="end" menuId="end">
+  <ion-header>
+      <ion-toolbar color='primary' >
+      </ion-toolbar>
+  </ion-header>
+<ion-content> 
+  <ion-list>
+    <ion-item>
+        <ion-icon name="information-circle" color="royal" slot="start"></ion-icon>
+        <ion-label>1111About</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon color="royal"  name="call" slot="start"></ion-icon>
+        <ion-label>1111Phone Numbers</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon color="royal" name="mail" slot="start"></ion-icon>
+        <ion-label>Email</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar color='primary' >
+  <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{tractate}}
+    </ion-title>
+    <ion-buttons slot='secondary'>
+      <ion-menu-button menu='end' ></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+
+
+<ion-content padding>
+    <ion-item>
+      <ion-label >דף</ion-label> 
+      <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange(audioPlayer)" interface='action-sheet'>
+        <ion-select-option [value]="i | pageOptionValue" *ngFor="let page of tractatePages; let i = index;" ><strong>{{page}}</strong></ion-select-option>
+      </ion-select>
+    </ion-item>
+      <audio id="audio-player" #audioPlayer controls>
+          <source [src]="this.audioURL" type='audio/mp3' >
+            <p>Your browser doesn't support HTML5 audio. Here is a <a [href]="this.audioURL">link to the audio</a> instead.</p>
+      </audio>
 </ion-content>

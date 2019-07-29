@@ -1,17 +1,47 @@
-<ion-header>
+<ion-menu content-id="tractates-content"  side="end" menuId="end">
+  <ion-header>
+      <ion-toolbar color='primary' >
+      </ion-toolbar>
+  </ion-header>
+<ion-content> 
+  <ion-list>
+    <ion-item>
+        <ion-icon name="information-circle" color="royal" slot="start"></ion-icon>
+        <ion-label>1111About</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon color="royal"  name="call" slot="start"></ion-icon>
+        <ion-label>1111Phone Numbers</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon color="royal" name="mail" slot="start"></ion-icon>
+        <ion-label>Email</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+</ion-menu>
 
-  <ion-toolbar>
-    <ion-title><h2>{{currentSeder}}</h2></ion-title>
+<ion-header>
+  <ion-toolbar color='primary' >
+  <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{currentSeder}}
+    </ion-title>
+    <ion-buttons slot='secondary'>
+      <ion-menu-button menu='end' ></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <!-- <ion-list >
-    <button text-center (click)="handleTractateClick(mesechta)" ion-item *ngFor="let mesechta of mesechtos[currentSeder]">
-      <strong>{{mesechta}}</strong>
-    </button>
-  </ion-list> -->
-  tractates 
+
+<ion-content padding id="tractates-content" >
+  <ion-list lines='full' >
+    <ion-item block outline text-center [routerLink]="['/tractate', mesechta ]"  *ngFor="let mesechta of mesechtos[currentSeder]">
+      <ion-label><strong>{{ mesechta }}</strong></ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

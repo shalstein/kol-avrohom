@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TractatePage } from './tractate.page';
+import { PageOptionValuePipe } from './pageOptionValue/page-option-value.pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +22,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TractatePage]
+  declarations: [TractatePage, PageOptionValuePipe]
 })
 export class TractatePageModule {}
