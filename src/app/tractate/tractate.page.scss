@@ -1,0 +1,31 @@
+
+    
+    // ion-label {
+    //     position: absolute;
+    //     right: 0%;
+    //     height: 100%;
+    // }
+    // .select-icon-inner{
+    //     left: 1em !important;
+
+    // }
+    // .select-icon {
+    //     position: static !important ;
+    // }
+    // #audio-wrapper {
+    //     text-align: center;
+    // }
+    #audio-player {
+        display: block;
+        margin: 3em auto;
+    }
+
+    ion-item,ion-title {
+        direction: rtl;
+    }
+
+    .action-sheet-button-inner {
+        direction: rtl;
+        text-align: right;
+    }
+    $app-direction: multi // Both RTL and LTR

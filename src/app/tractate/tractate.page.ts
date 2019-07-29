@@ -28,6 +28,15 @@ export class TractatePage implements OnInit {
   ngOnInit() {
     const tractateName: string = this.route.snapshot.params.name;
     this.tractate = tractateName;
+    this.tractateEnglishName = this.tractatesMetadata[this.tractate].name;
+    this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
+    this.tractatePages = this.generateTractatePages(this.tractatesMetadata[this.tractate].lastPage);
+    // const pageValueParam = this.navParams.get('pageValue');
+    const pageValueParam = null;
+    if (pageValueParam) {
+      this.currentPage = pageValueParam;
+      this.handleSelectDafChange(this.audioPlayer.nativeElement)
+    }
  }
 
  generateTractatePages = (lastPage) => {
@@ -42,19 +51,6 @@ export class TractatePage implements OnInit {
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
     audioPlayer.load();
     audioPlayer.play();
-  }
-
-
-  ionViewDidLoad() {
-    this.tractateEnglishName = this.tractatesMetadata[this.tractate].name 
-    this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
-    this.tractatePages = this.generateTractatePages(this.tractatesMetadata[this.tractate].lastPage);
-    // const pageValueParam = this.navParams.get('pageValue');
-    const pageValueParam = null;
-    if (pageValueParam) {
-      this.currentPage = pageValueParam;
-      this.handleSelectDafChange(this.audioPlayer.nativeElement)
-    }
   }
 
 }
