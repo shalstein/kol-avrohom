@@ -11,12 +11,12 @@
             <ion-label>About</ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <ion-item>
-          <ion-menu-toggle>
-            <ion-icon color="royal"  name="call" slot="start"></ion-icon>
-            <ion-label>Phone Numbers</ion-label>
-          </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/phone-numbers']" >
+              <ion-icon color="royal"  name="call" slot="start"></ion-icon>
+              <ion-label>Phone Numbers</ion-label>
       </ion-item>
+    </ion-menu-toggle>
       <ion-item>
           <ion-menu-toggle>
             <ion-icon color="royal" name="mail" slot="start"></ion-icon>

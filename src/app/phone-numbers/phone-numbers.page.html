@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Phone Numbers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+
+        <ion-list lines='none'>
+            <!-- <ion-list-header>
+              <h2>USA</h2>
+            </ion-list-header> -->
+    
+            <ion-card *ngFor="let city of allCities">
+              <ion-item>
+                <ion-label>
+                  <h2>{{city.name}}</h2>
+                  <h3>{{city.number}}</h3>
+                  <p>{{city.extension}}</p>
+                </ion-label>
+              </ion-item>
+            </ion-card>
+        </ion-list>
+</ion-content>
