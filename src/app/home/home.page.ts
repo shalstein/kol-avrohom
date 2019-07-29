@@ -14,17 +14,11 @@ export class HomePage implements OnInit {
   }
   sedarim = ['זרעים', 'מועד', 'נשים', 'נזקין', 'קדשים', 'טהרות' ];
 
-  handleSederClick = (seder) => {
-    console.log('clicked ' + seder);
-    // this.navCtrl.push(TractatesPage, {seder: seder});
-  }
   ngOnInit() {
     this.todaysTractate = this.dafYomiCalculater.calculateDafYomiToday(0);
     this.yesterdaysTractate = this.dafYomiCalculater.calculateDafYomiToday(-1);
     this.tomorrowsTractate = this.dafYomiCalculater.calculateDafYomiToday(1);
   }
-
-
 
    handleSegementChange = (ev: any)  => {
      if (ev.detail.value === 'dafYomi') {
@@ -33,12 +27,4 @@ export class HomePage implements OnInit {
        this.isDafYomiCurrentTab = false;
     }
    }
-
-   handleDafYomiButtonClick = (tractate ): void => {
-      console.log(tractate);
-      // const tractateName = tractate.tractateName;
-      // const pageValuePrefix = tractate.pageNumber <= 9 ? '0' : '';
-      // this.navCtrl.push(TractatePage, {tractate: tractateName, pageValue: pageValuePrefix + tractate.pageNumber})
-   }
-
 }
