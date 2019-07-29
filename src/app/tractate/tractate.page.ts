@@ -34,7 +34,6 @@ export class TractatePage implements OnInit {
     this.tractateEnglishName = this.tractatesMetadata[this.tractate].name;
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
     this.tractatePages = this.generateTractatePages(this.tractatesMetadata[this.tractate].lastPage);
-    // const pageValueParam = this.navParams.get('pageValue');
     if (tractatePageNumber) {
       const pageNumberPrefix = parseInt(tractatePageNumber, 10) <= 9 ? '0' : '';
       this.currentPage =  pageNumberPrefix + tractatePageNumber;
