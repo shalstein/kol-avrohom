@@ -1,5 +1,7 @@
 {
   "name": "kol-avrohom",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -28,8 +28,6 @@ export class TractatePage implements OnInit {
   ngOnInit() {
     const tractateName: string = this.route.snapshot.params.name;
     const tractatePageNumber: string = this.route.snapshot.params.pageNumber;
-    console.log(tractatePageNumber);
-
     this.tractate = tractateName;
     this.tractateEnglishName = this.tractatesMetadata[this.tractate].name;
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
