@@ -15,17 +15,37 @@
     // #audio-wrapper {
     //     text-align: center;
     // }
+    * {
+       font-size: 112%;
+    } 
+
     #audio-player {
         display: block;
         margin: 3em auto;
     }
 
-    ion-item,ion-title {
+    ion-select-option,ion-title, ion-select {
         direction: rtl;
+    }
+
+    ion-select {
+        width: 10em;
+        margin: 1em auto;
+        background-color: whitesmoke;
+        border-radius: 5%;
+    }
+
+    #daf-select {
+        direction: rtl;
+        width: 10em;
+        margin: 1em auto;
+        display: block;
     }
 
     .action-sheet-button-inner {
         direction: rtl;
         text-align: right;
     }
+
+    
     $app-direction: multi // Both RTL and LTR
