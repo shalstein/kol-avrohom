@@ -14,7 +14,7 @@
 
 <ion-content padding id="tractates-content" >
   <ion-list lines='full' >
-    <ion-item block outline text-center [routerLink]="['/tractate', mesechta ]"  *ngFor="let mesechta of mesechtos[currentSeder]">
+    <ion-item detail='false' block outline text-center [routerLink]="['/tractate', mesechta ]"  *ngFor="let mesechta of mesechtos[currentSeder]">
       <ion-label><strong>{{ mesechta }}</strong></ion-label>
     </ion-item>
   </ion-list>

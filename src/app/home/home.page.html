@@ -33,14 +33,14 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        <h3> קול אברהם </h3>
+         קול אברהם 
       </ion-title>
     </ion-toolbar>
   
   </ion-header>
 
 
-<ion-content id="content" >
+<ion-content  id="content" >
   <ion-segment [(ngModel)]="segmentValue" (ionChange)="handleSegementChange($event)">
     <ion-segment-button id="dafYomi" value="dafYomi">
       <ion-label> <strong>DAF YOMI</strong></ion-label>
@@ -51,8 +51,8 @@
   </ion-segment>
 
 
-    <ion-list id="select-daf" lines='full' *ngIf="segmentValue === 'selectDaf'">
-         <ion-item class="daf-option" [routerLink]="['/tractates', seder]" text-center padding-right padding-left ion-item text-center  block outline   *ngFor="let seder of sedarim"  >
+    <ion-list  id="select-daf" lines='full' *ngIf="segmentValue === 'selectDaf'">
+         <ion-item  class="daf-option" [routerLink]="['/tractates', seder]" text-center padding-right padding-left ion-item text-center  block outline detail='false'  *ngFor="let seder of sedarim"  >
               <ion-label><strong>{{ seder }}</strong></ion-label>
         </ion-item>  
     </ion-list>
