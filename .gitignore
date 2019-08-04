@@ -34,3 +34,9 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 platforms/android/app/build/outputs/apk/release/my-release-key.keystore
 my-release-key.keystore
+
+
+resources/android/icon/
+resources/android/splash/
+resources/ios/icon/
+resources/ios/splash/
