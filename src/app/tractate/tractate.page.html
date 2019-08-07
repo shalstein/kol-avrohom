@@ -15,7 +15,7 @@
 
 <ion-content id="tractate-content" padding>
       <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange(audioPlayer)" interface='action-sheet'>
-        <ion-select-option slot='end' text-center [value]="i | pageOptionValue" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
+        <ion-select-option slot='end' text-center [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
       </ion-select>
       <audio id="audio-player" #audioPlayer controls>
           <source [src]="this.audioURL" type='audio/mp3' >
