@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import dafConverter from 'daf-converter';
 
 
 @Component({
@@ -64,7 +63,22 @@ export class TractatePage implements OnInit {
   '169', '170', '171', '172', '173', '174', '175'];
 
 
-
+  pages = ['ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'יא', 'יב', 'יג',
+  'יד', 'טו', 'טז', 'יז', 'יח', 'יט', 'כ', 'כא', 'כב', 'כג', 'כד', 'כה',
+  'כו', 'כז', 'כח', 'כט', 'ל', 'לא', 'לב', 'לג', 'לד', 'לה', 'לו', 'לז',
+  'לח', 'לט', 'מ', 'מא', 'מב', 'מג', 'מד', 'מה', 'מו', 'מז', 'מח', 'מט',
+  'נ', 'נא', 'נב', 'נג', 'נד', 'נה', 'נו', 'נז', 'נח', 'נט', 'ס', 'סא',
+  'סב', 'סג', 'סד', 'סה', 'סו', 'סז', 'סח', 'סט', 'ע', 'עא', 'עב', 'עג',
+  'עד', 'עה', 'עו', 'עז', 'עח', 'עט', 'פ', 'פא', 'פב', 'פג', 'פד', 'פה',
+  'פו', 'פז', 'פח', 'פט', 'צ', 'צא', 'צב', 'צג', 'צד', 'צה', 'צו', 'צז',
+  'צח', 'צט', 'ק', 'קא', 'קב', 'קג', 'קד', 'קה', 'קו', 'קז', 'קח', 'קט',
+  'קי', 'קיא', 'קיב', 'קיג', 'קיד', 'קטו', 'קטז', 'קיז', 'קיח', 'קיט',
+  'קכ', 'קכא', 'קכב', 'קכג', 'קכד', 'קכה', 'קכו', 'קכז', 'קכח', 'קכט',
+  'קל', 'קלא', 'קלב', 'קלג', 'קלד', 'קלה', 'קלו', 'קלז', 'קלח', 'קלט',
+  'קמ', 'קמא', 'קמב', 'קמג', 'קמד', 'קמה', 'קמו', 'קמז', 'קמח', 'קמט',
+  'קנ', 'קנא', 'קנב', 'קנג', 'קנד', 'קנה', 'קנו', 'קנז', 'קנח', 'קנט',
+  'קס', 'קסא', 'קסב', 'קסג', 'קסד', 'קסה', 'קסו', 'קסז', 'קסח', 'קסט',
+  'קע', 'קעא', 'קעב', 'קעג', 'קעד', 'קעה'];
 
   constructor(private route: ActivatedRoute) { }
 
@@ -74,20 +88,13 @@ export class TractatePage implements OnInit {
     this.tractate = tractateName;
     this.tractateEnglishName = this.tractatesMetadata[this.tractate].name;
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
-    this.tractatePages = this.generateTractatePages(this.tractatesMetadata[this.tractate].lastPage);
+    this.tractatePages = this.pages.slice(0, (this.tractatesMetadata[this.tractate].lastPage - 1) );
     if (tractatePageNumber) {
       this.currentPage =  this.pageValues[(+ tractatePageNumber) - 2];
       this.handleSelectDafChange(this.audioPlayer.nativeElement);
     }
- }
+  }
 
- generateTractatePages = (lastPage) => {
-  const pages = [];
-  for (let i = 2; i <= lastPage; i++) {
-    pages.push(dafConverter(i));
-  }
-  return pages;
-  }
 
   handleSelectDafChange = audioPlayer => {
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
