@@ -24,5 +24,8 @@
         text-align: right;
     }
 
-    
+    ion-loading {
+     --height: 500px;
+    }
+
     $app-direction: multi // Both RTL and LTR

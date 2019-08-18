@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tractate',
@@ -80,7 +80,7 @@ export class TractatePage implements OnInit {
   'קס', 'קסא', 'קסב', 'קסג', 'קסד', 'קסה', 'קסו', 'קסז', 'קסח', 'קסט',
   'קע', 'קעא', 'קעב', 'קעג', 'קעד', 'קעה'];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private loadingController: LoadingController) { }
 
   ngOnInit() {
     const tractateName: string = this.route.snapshot.params.name;
@@ -96,11 +96,31 @@ export class TractatePage implements OnInit {
   }
 
 
-  handleSelectDafChange = audioPlayer => {
+  handleSelectDafChange = async audioPlayer => {
+    const loading = await this.loadingController.create({
+      duration: 15000,
+      message: 'Loading',
+    });
+
+    loading.present();
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
-    audioPlayer.load();
-    audioPlayer.play();
+    try {
+      audioPlayer.style.visibility = 'hidden';
+      audioPlayer.load();
+      await this.loadedAudio;
+      await audioPlayer.play();
+      audioPlayer.style.visibility = 'visible';
+      loading.dismiss();
+    } catch (error) {
+        console.error(error);
+    }
   }
+
+   loadedAudio(audioElement) {
+    return new Promise( resolve => {
+        audioElement.onloadeddata = () => resolve();
+    });
+}
 
 }
 
