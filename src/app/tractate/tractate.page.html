@@ -17,7 +17,7 @@
       <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange(audioPlayer)" interface='action-sheet'>
         <ion-select-option slot='end' text-center [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
       </ion-select>
-      <audio id="audio-player" #audioPlayer controls>
+      <audio preload='metadata' [autoplay]='isAutoplay' id="audio-player" #audioPlayer controls>
           <source [src]="this.audioURL" type='audio/mp3' >
             <p>Your browser doesn't support HTML5 audio. Here is a <a [href]="this.audioURL">link to the audio</a> instead.</p>
       </audio>

@@ -9,7 +9,7 @@ import { LoadingController } from '@ionic/angular';
 })
 export class TractatePage implements OnInit {
   tractate: string;
-  @ViewChild('audioPlayer') audioPlayer: ElementRef;
+  @ViewChild('audioPlayer') audioPlayer: any;
   tractateEnglishName: string;
   tractatePages = [];
   currentPage = '02';
@@ -79,7 +79,7 @@ export class TractatePage implements OnInit {
   'קנ', 'קנא', 'קנב', 'קנג', 'קנד', 'קנה', 'קנו', 'קנז', 'קנח', 'קנט',
   'קס', 'קסא', 'קסב', 'קסג', 'קסד', 'קסה', 'קסו', 'קסז', 'קסח', 'קסט',
   'קע', 'קעא', 'קעב', 'קעג', 'קעד', 'קעה'];
-
+  isAutoplay = false;
   constructor(private route: ActivatedRoute, private loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -99,16 +99,16 @@ export class TractatePage implements OnInit {
   handleSelectDafChange = async audioPlayer => {
     const loading = await this.loadingController.create({
       duration: 15000,
-      message: 'Loading',
     });
 
     loading.present();
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
     try {
+      this.isAutoplay = true;
       audioPlayer.style.visibility = 'hidden';
       audioPlayer.load();
-      await this.loadedAudio;
-      await audioPlayer.play();
+      await this.loadedAudio(audioPlayer);
+      await this.playedAudio(audioPlayer);
       audioPlayer.style.visibility = 'visible';
       loading.dismiss();
     } catch (error) {
@@ -116,19 +116,14 @@ export class TractatePage implements OnInit {
     }
   }
 
-   loadedAudio(audioElement) {
+  loadedAudio(audioElement) {
     return new Promise( resolve => {
         audioElement.onloadeddata = () => resolve();
-    });
+      }
+    );
+  }
+
+  playedAudio(audioElement) {
+    return new Promise( (resolve) => audioElement.onplay = () =>  resolve());
+  }
 }
-
-}
-
-
-
-
-
-
-
-
-
