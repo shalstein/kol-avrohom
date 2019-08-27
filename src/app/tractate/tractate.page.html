@@ -21,5 +21,41 @@
           <source [src]="this.audioURL" type='audio/mp3' >
             <p>Your browser doesn't support HTML5 audio. Here is a <a [href]="this.audioURL">link to the audio</a> instead.</p>
       </audio>
-
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar color="primary">
+        <ion-range min="0" color="light" max="10" 
+                   name="seekbar">
+          <ion-label color="light" range-left>1.000</ion-label>
+          <ion-label color="light" range-right>2.20</ion-label>
+        </ion-range>
+      </ion-toolbar>
+    
+      <ion-toolbar color="primary" padding>
+        <ion-grid>
+          <ion-row align-items-center id="media-controls">
+            <ion-col>
+            <ion-button    fill='clear'   >
+              <ion-icon   color="light" name="skip-backward"> </ion-icon>
+            </ion-button>
+            </ion-col>
+            <ion-col>
+            <ion-button     fill='clear'  >
+              <ion-icon   color="light" name="play"></ion-icon>
+            </ion-button>
+            </ion-col>
+            <!-- <ion-col>
+            <ion-button fill='clear'  >
+              <ion-icon color="light" name="pause"></ion-icon>
+            </ion-button>
+            </ion-col> -->
+            <ion-col>
+            <ion-button    fill='clear'  >
+              <ion-icon   color="light" name="skip-forward"></ion-icon>
+            </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
+</ion-footer>

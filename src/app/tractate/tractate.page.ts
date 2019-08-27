@@ -91,7 +91,7 @@ export class TractatePage implements OnInit {
     this.tractatePages = this.pages.slice(0, (this.tractatesMetadata[this.tractate].lastPage - 1) );
     if (tractatePageNumber) {
       this.currentPage =  this.pageValues[(+ tractatePageNumber) - 2];
-      this.handleSelectDafChange(this.audioPlayer.nativeElement);
+      //this.handleSelectDafChange(this.audioPlayer.nativeElement);
     }
   }
 
