@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import {AudioService} from './audio.service';
 
 @Component({
   selector: 'app-tractate',
@@ -80,7 +81,7 @@ export class TractatePage implements OnInit {
   'קס', 'קסא', 'קסב', 'קסג', 'קסד', 'קסה', 'קסו', 'קסז', 'קסח', 'קסט',
   'קע', 'קעא', 'קעב', 'קעג', 'קעד', 'קעה'];
   isAutoplay = false;
-  constructor(private route: ActivatedRoute, private loadingController: LoadingController) { }
+  constructor(private route: ActivatedRoute, private loadingController: LoadingController, private audioService: AudioService) { }
 
   ngOnInit() {
     const tractateName: string = this.route.snapshot.params.name;
