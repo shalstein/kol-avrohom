@@ -25,10 +25,10 @@
 
 <ion-footer>
     <ion-toolbar color="primary">
-        <ion-range min="0" color="light" max="10" 
+        <ion-range min="0" color="light" [max]="audioState.durationSec" [formControl]="seekbar" (ionFocus)="onSeekStart" (ionBlur)='onSeekEnd($event)'
                    name="seekbar">
-          <ion-label color="light" range-left>1.000</ion-label>
-          <ion-label color="light" range-right>2.20</ion-label>
+          <ion-label color="light" slot='start'>{{audioState.time}}</ion-label>
+          <ion-label color="light" slot='end'>{{ audioState.duration }}</ion-label>
         </ion-range>
       </ion-toolbar>
     
@@ -40,16 +40,16 @@
               <ion-icon   color="light" name="skip-backward"> </ion-icon>
             </ion-button>
             </ion-col>
-            <ion-col>
-            <ion-button     fill='clear'  >
+            <ion-col *ngIf="!audioState.playing" >
+            <ion-button fill='clear'  >
               <ion-icon   color="light" name="play"></ion-icon>
             </ion-button>
             </ion-col>
-            <!-- <ion-col>
+            <ion-col *ngIf="!!audioState.playing" >
             <ion-button fill='clear'  >
               <ion-icon color="light" name="pause"></ion-icon>
             </ion-button>
-            </ion-col> -->
+            </ion-col>
             <ion-col>
             <ion-button    fill='clear'  >
               <ion-icon   color="light" name="skip-forward"></ion-icon>

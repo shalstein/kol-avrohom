@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import {AudioService} from './audio.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-tractate',
@@ -10,11 +11,15 @@ import {AudioService} from './audio.service';
 })
 export class TractatePage implements OnInit {
   tractate: string;
+  onSeekState: boolean;
   @ViewChild('audioPlayer') audioPlayer: any;
   tractateEnglishName: string;
   tractatePages = [];
   currentPage = '02';
   audioURL: string;
+  seekbar: FormControl = new FormControl('seekbar');
+  state: any = { playing: '',  };
+  audioState: any = {canplay: '', playing: '', };
   tractatesMetadata = {
     ברכות: {name: 'Brochos', lastPage: 64}, שבת: {name: 'Shabbos',
      lastPage: 157}, עירובין: {name: 'Eruvin', lastPage: 104}, פסחים: {name: 'Pesachim', lastPage: 120}, 'ראש השנה': {name: 'RoshHashana',
@@ -127,4 +132,101 @@ export class TractatePage implements OnInit {
   playedAudio(audioElement) {
     return new Promise( (resolve) => audioElement.onplay = () =>  resolve());
   }
+
+playStream(url) {
+  this.resetState();
+  this.audioService.playStream(url).subscribe(event => {
+    const audioObj = event.target;
+
+    switch (event.type) {
+      case 'canplay':
+      return this.audioState.canplay = true;
+
+      case 'loadedmetadata':
+        return this.audioState.metadata = {
+          duration: this.audioService.formatTime(
+            audioObj.duration * 1000,
+            'HH:mm:ss'
+          ),
+          durationSec: audioObj.duration,
+        };
+
+      case 'playing':
+        return this.audioState.playing = true;
+
+      case 'pause':
+        return this.audioState.playing = false;
+      case 'timeupdate':
+        return this.audioState.time = {
+          timeSec: audioObj.currentTime,
+          time: this.audioService.formatTime(
+            audioObj.currentTime * 1000,
+            'HH:mm:ss'
+          )
+        };
+
+      case 'loadstart':
+        return this.audioState.loadStart = true;
+      }
+  });
+}
+
+
+pause() {
+  this.audioService.pause();
+}
+
+play() {
+  this.audioService.play();
+}
+
+stop() {
+  this.audioService.stop();
+}
+
+// next() {
+//   let index = this.currentFile.index + 1;
+//   let file = this.files[index];
+//   this.openFile(file, index);
+// }
+
+// previous() {
+//   let index = this.currentFile.index - 1;
+//   let file = this.files[index];
+//   this.openFile(file, index);
+// }
+
+// isFirstPlaying() {
+//   return this.currentFile.index === 0;
+// }
+
+// isLastPlaying() {
+//   return this.currentFile.index === this.files.length - 1;
+// }
+
+onSeekStart() {
+  this.onSeekState = this.audioState.playing;
+  if (this.onSeekState) {
+    this.pause();
+  }
+}
+
+onSeekEnd(event) {
+  if (this.onSeekState) {
+    this.audioService.seekTo(event.value);
+    this.play();
+  } else {
+    this.audioService.seekTo(event.value);
+  }
+}
+
+reset() {
+  this.resetState();
+}
+
+resetState() {
+  this.audioService.stop();
+}
+
+
 }
