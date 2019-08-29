@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import {AudioService} from './audio.service';
-import {FormControl} from '@angular/forms';
+// import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-tractate',
@@ -12,14 +12,13 @@ import {FormControl} from '@angular/forms';
 export class TractatePage implements OnInit {
   tractate: string;
   onSeekState: boolean;
-  @ViewChild('audioPlayer') audioPlayer: any;
+  // @ViewChild('audioPlayer') audioPlayer: any;
   tractateEnglishName: string;
   tractatePages = [];
   currentPage = '02';
   audioURL: string;
-  seekbar: FormControl = new FormControl('seekbar');
-  state: any = { playing: '',  };
-  audioState: any = {canplay: '', playing: '', };
+  audioState: any = {metadata: {durationSec: 0, duration: 0}, canplay: false, playing: false, time: {timeSec: 0, time: 0},
+  loadStart: false};
   tractatesMetadata = {
     ברכות: {name: 'Brochos', lastPage: 64}, שבת: {name: 'Shabbos',
      lastPage: 157}, עירובין: {name: 'Eruvin', lastPage: 104}, פסחים: {name: 'Pesachim', lastPage: 120}, 'ראש השנה': {name: 'RoshHashana',
@@ -97,29 +96,30 @@ export class TractatePage implements OnInit {
     this.tractatePages = this.pages.slice(0, (this.tractatesMetadata[this.tractate].lastPage - 1) );
     if (tractatePageNumber) {
       this.currentPage =  this.pageValues[(+ tractatePageNumber) - 2];
-      //this.handleSelectDafChange(this.audioPlayer.nativeElement);
+      this.handleSelectDafChange();
     }
   }
 
 
-  handleSelectDafChange = async audioPlayer => {
-    const loading = await this.loadingController.create({
-      duration: 15000,
-    });
+  handleSelectDafChange = () => {
+    // const loading = await this.loadingController.create({
+    //   duration: 15000,
+    // });
 
-    loading.present();
+    // loading.present();
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
-    try {
-      this.isAutoplay = true;
-      audioPlayer.style.visibility = 'hidden';
-      audioPlayer.load();
-      await this.loadedAudio(audioPlayer);
-      await this.playedAudio(audioPlayer);
-      audioPlayer.style.visibility = 'visible';
-      loading.dismiss();
-    } catch (error) {
-        console.error(error);
-    }
+    // try {
+    //   this.isAutoplay = true;
+    //   audioPlayer.style.visibility = 'hidden';
+    //   audioPlayer.load();
+    //   await this.loadedAudio(audioPlayer);
+    //   await this.playedAudio(audioPlayer);
+    //   audioPlayer.style.visibility = 'visible';
+    //   loading.dismiss();
+    // } catch (error) {
+    //     console.error(error);
+    // }
+    this.playStream(this.audioURL);
   }
 
   loadedAudio(audioElement) {
@@ -172,17 +172,22 @@ playStream(url) {
 }
 
 
-pause() {
-  this.audioService.pause();
-}
+  pause() {
+    this.audioService.pause();
+  }
 
-play() {
-  this.audioService.play();
-}
+  play() {
+    this.audioService.play();
+  }
 
-stop() {
-  this.audioService.stop();
-}
+  stop() {
+    this.audioService.stop();
+  }
+
+  onSeekChange(event) {
+    this.audioState.time.time = this.audioService.formatTime(event.target.value * 1000, 'HH:mm:ss');
+  }
+
 
 // next() {
 //   let index = this.currentFile.index + 1;
@@ -213,10 +218,10 @@ onSeekStart() {
 
 onSeekEnd(event) {
   if (this.onSeekState) {
-    this.audioService.seekTo(event.value);
+    this.audioService.seekTo(event.target.value);
     this.play();
   } else {
-    this.audioService.seekTo(event.value);
+    this.audioService.seekTo(event.target.value);
   }
 }
 

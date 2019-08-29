@@ -17,18 +17,18 @@
       <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange(audioPlayer)" interface='action-sheet'>
         <ion-select-option slot='end' text-center [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
       </ion-select>
-      <audio preload='metadata' [autoplay]='isAutoplay' id="audio-player" #audioPlayer controls>
+      <!-- <audio preload='metadata' [autoplay]='isAutoplay' id="audio-player" #audioPlayer controls>
           <source [src]="this.audioURL" type='audio/mp3' >
             <p>Your browser doesn't support HTML5 audio. Here is a <a [href]="this.audioURL">link to the audio</a> instead.</p>
-      </audio>
+      </audio> -->
 </ion-content>
 
 <ion-footer>
     <ion-toolbar color="primary">
-        <ion-range min="0" color="light" [max]="audioState.durationSec" [formControl]="seekbar" (ionFocus)="onSeekStart" (ionBlur)='onSeekEnd($event)'
-                   name="seekbar">
-          <ion-label color="light" slot='start'>{{audioState.time}}</ion-label>
-          <ion-label color="light" slot='end'>{{ audioState.duration }}</ion-label>
+        <ion-range min="0" color="light" [max]="audioState.metadata.durationSec" (ionFocus)="onSeekStart()" [value]='audioState.time.timeSec' (ionBlur)='onSeekEnd($event)'
+                   name="seekbar" (ionChange)="onSeekChange($event)"  >
+          <ion-label color="light" slot='start'>{{audioState.time.time}}</ion-label>
+          <ion-label color="light" slot='end'>{{ audioState.metadata.duration }}</ion-label>
         </ion-range>
       </ion-toolbar>
     
@@ -41,12 +41,12 @@
             </ion-button>
             </ion-col>
             <ion-col *ngIf="!audioState.playing" >
-            <ion-button fill='clear'  >
-              <ion-icon   color="light" name="play"></ion-icon>
+            <ion-button (click)="play()" fill='clear'  >
+              <ion-icon   color="light"  name="play"></ion-icon>
             </ion-button>
             </ion-col>
             <ion-col *ngIf="!!audioState.playing" >
-            <ion-button fill='clear'  >
+            <ion-button (click)="pause()" fill='clear'  >
               <ion-icon color="light" name="pause"></ion-icon>
             </ion-button>
             </ion-col>
