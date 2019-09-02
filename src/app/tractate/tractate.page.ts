@@ -45,7 +45,7 @@ export class TractatePage implements OnInit {
         הוריות: {name: 'Horayos', lastPage: 14},
         זבחים: {name: 'Zevachim', lastPage: 120},
         מנחות: {name: 'Menachos', lastPage: 110},
-        חולין: {name: 'Chulin', lastPage: 64},
+        חולין: {name: 'Chulin', lastPage: 142},
         בכורות: {name: 'Bechoros', lastPage: 61},
        ערכין: {name: 'Erchin', lastPage: 34},
        תמורה: {name: 'Temura', lastPage: 34},
