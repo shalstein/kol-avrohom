@@ -214,6 +214,9 @@ playStream(url) {
 
   handleSeekButtonsMouseUp(event) {
     clearInterval(this.timerId);
+    if (this.onSeekState) {
+      this.play();
+    }
   }
 
   handleSeekButtonsMouseDown(direction) {
@@ -221,7 +224,11 @@ playStream(url) {
   }
 
   intervalSeek(direction) {
-    const seekTimes = (direction) => {
+    this.onSeekState = this.audioState.playing;
+    if (this.onSeekState) {
+      this.pause();
+    }
+    const seekTimes = direction => {
       if (direction === 'forward') {
       return {longJumpTime: this.audioState.time.timeSec + 15, shortJumpTime: this.audioState.time.timeSec + 2  };
       }
