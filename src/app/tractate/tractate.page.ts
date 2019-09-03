@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import {AudioService} from './audio.service';
-// import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-tractate',
@@ -12,7 +11,8 @@ import {AudioService} from './audio.service';
 export class TractatePage implements OnInit {
   tractate: string;
   onSeekState: boolean;
-  // @ViewChild('audioPlayer') audioPlayer: any;
+  timerId: any;
+  audioJumpTimerId: any;
   tractateEnglishName: string;
   tractatePages = [];
   currentPage = '02';
@@ -188,50 +188,56 @@ playStream(url) {
     this.audioState.time.time = this.audioService.formatTime(event.target.value * 1000, 'HH:mm:ss');
   }
 
-
-// next() {
-//   let index = this.currentFile.index + 1;
-//   let file = this.files[index];
-//   this.openFile(file, index);
-// }
-
-// previous() {
-//   let index = this.currentFile.index - 1;
-//   let file = this.files[index];
-//   this.openFile(file, index);
-// }
-
-// isFirstPlaying() {
-//   return this.currentFile.index === 0;
-// }
-
-// isLastPlaying() {
-//   return this.currentFile.index === this.files.length - 1;
-// }
-
-onSeekStart() {
-  this.onSeekState = this.audioState.playing;
-  if (this.onSeekState) {
-    this.pause();
+  onSeekStart() {
+    this.onSeekState = this.audioState.playing;
+    if (this.onSeekState) {
+      this.pause();
+    }
   }
-}
 
-onSeekEnd(event) {
-  if (this.onSeekState) {
-    this.audioService.seekTo(event.target.value);
-    this.play();
-  } else {
-    this.audioService.seekTo(event.target.value);
+  onSeekEnd(event) {
+    if (this.onSeekState) {
+      this.audioService.seekTo(event.target.value);
+      this.play();
+    } else {
+      this.audioService.seekTo(event.target.value);
+    }
   }
-}
 
-reset() {
-  this.resetState();
-}
+  reset() {
+    this.resetState();
+  }
 
-resetState() {
-  this.audioService.stop();
-}
+  resetState() {
+    this.audioService.stop();
+  }
+
+  handleSeekButtonsMouseUp(event) {
+    clearInterval(this.timerId);
+  }
+
+  handleSeekButtonsMouseDown(direction) {
+    this.intervalSeek(direction);
+  }
+
+  intervalSeek(direction) {
+    const seekTimes = (direction) => {
+      if (direction === 'forward') {
+      return {longJumpTime: this.audioState.time.timeSec + 15, shortJumpTime: this.audioState.time.timeSec + 2  };
+      }
+      return {longJumpTime: this.audioState.time.timeSec - 15, shortJumpTime: this.audioState.time.timeSec - 2  };
+  };
+
+    this.audioJumpTimerId = setTimeout(() => {
+      this.audioService.seekTo(seekTimes(direction).longJumpTime );
+    } , 200);
+    this.timerId = setInterval(() => {
+      if (this.audioJumpTimerId) {
+        clearTimeout(this.audioJumpTimerId);
+      }
+      this.audioService.seekTo(seekTimes(direction).shortJumpTime);
+    }, 100 );
+  }
 
 
 }

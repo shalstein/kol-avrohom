@@ -36,12 +36,12 @@
         <ion-grid>
           <ion-row align-items-center id="media-controls">
             <ion-col>
-            <ion-button    fill='clear'   >
-              <ion-icon   color="light" name="rewind"> </ion-icon>
+            <ion-button name="rewind"   fill='clear' (mouseup)='handleSeekButtonsMouseUp($event)' (mousedown)="handleSeekButtonsMouseDown('backward')"   >
+              <ion-icon name='rewind'  color="light" > </ion-icon>
             </ion-button>
             </ion-col>
             <ion-col *ngIf="!audioState.playing" >
-            <ion-button (click)="play()" fill='clear'  >
+            <ion-button  (click)="play()" fill='clear'  >
               <ion-icon   color="light"  name="play"></ion-icon>
             </ion-button>
             </ion-col>
@@ -51,7 +51,7 @@
             </ion-button>
             </ion-col>
             <ion-col>
-            <ion-button    fill='clear'  >
+            <ion-button (mouseup)='handleSeekButtonsMouseUp()' (mousedown)='handleSeekButtonsMouseDown("forward")'   fill='clear'  >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
             </ion-col>

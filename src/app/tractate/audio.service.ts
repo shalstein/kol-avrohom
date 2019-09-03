@@ -18,7 +18,7 @@ export class AudioService {
     ];
 
     const addEvents = (obj, events, handler) => {
-      events.forEach(event => {
+      events.forEach((event: any) => {
         obj.addEventListener(event, handler);
       });
     };
