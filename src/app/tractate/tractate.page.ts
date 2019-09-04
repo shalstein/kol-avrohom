@@ -114,22 +114,16 @@ export class TractatePage implements OnInit {
     loading.present();
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
     try {
-      // this.isAutoplay = true;
+      const subscription = this.audioService.listenTocanPlay()
+      .subscribe(() => {
+        loading.dismiss();
+        subscription.unsubscribe();
+      });
       this.playStream(this.audioURL);
-      // await this.loadedAudio(audioPlayer);
-      // await this.playedAudio(audioPlayer);
-      loading.dismiss();
     } catch (error) {
         console.error(error);
     }
   }
-
-  //   loadedAudio(audioElement) {
-  //   return new Promise( resolve => {
-  //       audioElement.onloadeddata = () => resolve();
-  //     }
-  //   );
-  // }
 
   playedAudio(audioElement) {
     return new Promise( (resolve) => audioElement.onplay = () =>  resolve());
@@ -142,8 +136,7 @@ export class TractatePage implements OnInit {
 
     switch (event.type) {
       case 'canplay':
-        this.audioState.canplay = true;
-        return this.changeDetector.markForCheck;
+      return this.audioState.canplay = true;
 
       case 'loadedmetadata':
         return this.audioState.metadata = {

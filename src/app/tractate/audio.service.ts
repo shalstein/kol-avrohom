@@ -12,8 +12,13 @@ export class AudioService {
 
   constructor() { }
 
-  canPlay() {
-    this.audioObj.addEventListener('canplay', handler )
+  listenTocanPlay() {
+    return Observable.create(observer => {
+      const handler = (event) =>  observer.next(event);
+      this.audioObj.addEventListener('canplay', handler );
+
+      return () => this.audioObj.removeEventListener('canplay', handler);
+    });
   }
 
   private streamObservable(url) {
