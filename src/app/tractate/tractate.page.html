@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header  >
   <ion-toolbar color='primary' >
   <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -14,7 +14,7 @@
 
 
 <ion-content id="tractate-content" padding>
-      <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange(audioPlayer)" interface='action-sheet'>
+      <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange()" interface='action-sheet'>
         <ion-select-option slot='end' text-center [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
       </ion-select>
       <!-- <audio preload='metadata' [autoplay]='isAutoplay' id="audio-player" #audioPlayer controls>
@@ -23,7 +23,7 @@
       </audio> -->
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="audioState.canplay" >
     <ion-toolbar color="primary">
         <ion-range min="0" color="light" [max]="audioState.metadata.durationSec" (ionFocus)="onSeekStart()" [value]='audioState.time.timeSec' (ionBlur)='onSeekEnd($event)'
                    name="seekbar" (ionChange)="onSeekChange($event)"  >

@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import {AudioService} from './audio.service';
+
 
 @Component({
   selector: 'app-tractate',
@@ -84,8 +85,12 @@ export class TractatePage implements OnInit {
   'קנ', 'קנא', 'קנב', 'קנג', 'קנד', 'קנה', 'קנו', 'קנז', 'קנח', 'קנט',
   'קס', 'קסא', 'קסב', 'קסג', 'קסד', 'קסה', 'קסו', 'קסז', 'קסח', 'קסט',
   'קע', 'קעא', 'קעב', 'קעג', 'קעד', 'קעה'];
-  isAutoplay = false;
-  constructor(private route: ActivatedRoute, private loadingController: LoadingController, private audioService: AudioService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private loadingController: LoadingController,
+    private audioService: AudioService,
+    private changeDetector: ChangeDetectorRef,
+    ) { }
 
   ngOnInit() {
     const tractateName: string = this.route.snapshot.params.name;
@@ -95,52 +100,50 @@ export class TractatePage implements OnInit {
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
     this.tractatePages = this.pages.slice(0, (this.tractatesMetadata[this.tractate].lastPage - 1) );
     if (tractatePageNumber) {
-      this.currentPage =  this.pageValues[(+ tractatePageNumber) - 2];
+      this.currentPage = this.pageValues[(+ tractatePageNumber) - 2];
       this.handleSelectDafChange();
     }
   }
 
 
-  handleSelectDafChange = () => {
-    // const loading = await this.loadingController.create({
-    //   duration: 15000,
-    // });
+  handleSelectDafChange = async () => {
+    const loading = await this.loadingController.create({
+      duration: 15000,
+    });
 
-    // loading.present();
+    loading.present();
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
-    // try {
-    //   this.isAutoplay = true;
-    //   audioPlayer.style.visibility = 'hidden';
-    //   audioPlayer.load();
-    //   await this.loadedAudio(audioPlayer);
-    //   await this.playedAudio(audioPlayer);
-    //   audioPlayer.style.visibility = 'visible';
-    //   loading.dismiss();
-    // } catch (error) {
-    //     console.error(error);
-    // }
-    this.playStream(this.audioURL);
+    try {
+      // this.isAutoplay = true;
+      this.playStream(this.audioURL);
+      // await this.loadedAudio(audioPlayer);
+      // await this.playedAudio(audioPlayer);
+      loading.dismiss();
+    } catch (error) {
+        console.error(error);
+    }
   }
 
-  loadedAudio(audioElement) {
-    return new Promise( resolve => {
-        audioElement.onloadeddata = () => resolve();
-      }
-    );
-  }
+  //   loadedAudio(audioElement) {
+  //   return new Promise( resolve => {
+  //       audioElement.onloadeddata = () => resolve();
+  //     }
+  //   );
+  // }
 
   playedAudio(audioElement) {
     return new Promise( (resolve) => audioElement.onplay = () =>  resolve());
   }
 
-playStream(url) {
-  this.resetState();
-  this.audioService.playStream(url).subscribe(event => {
+  playStream(url) {
+    this.resetState();
+    this.audioService.playStream(url).subscribe(event => {
     const audioObj = event.target;
 
     switch (event.type) {
       case 'canplay':
-      return this.audioState.canplay = true;
+        this.audioState.canplay = true;
+        return this.changeDetector.markForCheck;
 
       case 'loadedmetadata':
         return this.audioState.metadata = {
@@ -172,30 +175,30 @@ playStream(url) {
 }
 
 
-  pause() {
+    pause() {
     this.audioService.pause();
   }
 
-  play() {
+    play() {
     this.audioService.play();
   }
 
-  stop() {
+    stop() {
     this.audioService.stop();
   }
 
-  onSeekChange(event) {
+    onSeekChange(event) {
     this.audioState.time.time = this.audioService.formatTime(event.target.value * 1000, 'HH:mm:ss');
   }
 
-  onSeekStart() {
+    onSeekStart() {
     this.onSeekState = this.audioState.playing;
     if (this.onSeekState) {
       this.pause();
     }
   }
 
-  onSeekEnd(event) {
+    onSeekEnd(event) {
     if (this.onSeekState) {
       this.audioService.seekTo(event.target.value);
       this.play();
@@ -204,11 +207,11 @@ playStream(url) {
     }
   }
 
-  reset() {
+    reset() {
     this.resetState();
   }
 
-  resetState() {
+    resetState() {
     this.audioService.stop();
   }
 

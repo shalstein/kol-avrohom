@@ -12,6 +12,10 @@ export class AudioService {
 
   constructor() { }
 
+  canPlay() {
+    this.audioObj.addEventListener('canplay', handler )
+  }
+
   private streamObservable(url) {
     const events = [
       'ended', 'error', 'play', 'playing', 'pause', 'timeupdate', 'canplay', 'loadedmetadata', 'loadstart'
@@ -36,7 +40,7 @@ export class AudioService {
       this.audioObj.play();
 
       // Media Events
-      const handler = (event) => observer.next(event);
+      const handler = (event) =>  observer.next(event);
       addEvents(this.audioObj, events, handler);
 
       return () => {
