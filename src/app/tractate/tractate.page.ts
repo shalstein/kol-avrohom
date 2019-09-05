@@ -18,7 +18,7 @@ export class TractatePage implements OnInit {
   tractatePages = [];
   currentPage = '02';
   audioURL: string;
-  audioState: any = {metadata: {durationSec: 0, duration: 0}, canplay: false, playing: false, time: {timeSec: '', time: ''},
+  audioState: any = {metadata: {durationSec: 0, duration: 0}, canplay: false, playing: false, time: {timeSec: '', time: '00:00:00'},
   loadStart: false};
   tractatesMetadata = {
     ברכות: {name: 'Brochos', lastPage: 64}, שבת: {name: 'Shabbos',
@@ -99,6 +99,7 @@ export class TractatePage implements OnInit {
     this.tractateEnglishName = this.tractatesMetadata[this.tractate].name;
     this.audioURL = `http://download.kolavrohom.com/${this.tractateEnglishName}/${this.currentPage}.mp3`;
     this.tractatePages = this.pages.slice(0, (this.tractatesMetadata[this.tractate].lastPage - 1) );
+    this.loadStream(this.audioURL);
     if (tractatePageNumber) {
       this.currentPage = this.pageValues[(+ tractatePageNumber) - 2];
       this.handleSelectDafChange();
@@ -125,13 +126,17 @@ export class TractatePage implements OnInit {
     }
   }
 
-  playedAudio(audioElement) {
-    return new Promise( (resolve) => audioElement.onplay = () =>  resolve());
+  loadStream(url) {
+    this.resetState();
+    this.audioService.loadStream(url).subscribe(this.handleAudioStream);
   }
 
   playStream(url) {
     this.resetState();
-    this.audioService.playStream(url).subscribe(event => {
+    this.audioService.playStream(url).subscribe(this.handleAudioStream);
+  }
+
+  handleAudioStream = (event) => {
     const audioObj = event.target;
 
     switch (event.type) {
@@ -164,8 +169,7 @@ export class TractatePage implements OnInit {
         this.audioState.canplay = false;
         return this.audioState.loadStart = true;
       }
-  });
-}
+  }
 
 
     pause() {

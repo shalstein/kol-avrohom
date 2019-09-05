@@ -21,7 +21,7 @@ export class AudioService {
     });
   }
 
-  private streamObservable(url) {
+  private streamObservable(url, options = {isLoadedOnly: false}) {
     const events = [
       'ended', 'error', 'play', 'playing', 'pause', 'timeupdate', 'canplay', 'loadedmetadata', 'loadstart'
     ];
@@ -41,9 +41,10 @@ export class AudioService {
     return Observable.create(observer => {
       // Play audio
       this.audioObj.src = url;
-      this.audioObj.autoplay = true;
+      this.audioObj.preload = 'metadata';
+      this.audioObj.autoplay = !options.isLoadedOnly;
       this.audioObj.load();
-      this.audioObj.play();
+      console.log(this.audioObj)
 
       // Media Events
       const handler = (event) =>  observer.next(event);
@@ -62,6 +63,10 @@ export class AudioService {
 
   playStream(url) {
     return this.streamObservable(url).pipe(takeUntil(this.stop$));
+  }
+
+  loadStream(url) {
+    return this.streamObservable(url, {isLoadedOnly: true}).pipe(takeUntil(this.stop$));
   }
 
   play() {
