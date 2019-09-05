@@ -18,7 +18,7 @@ export class TractatePage implements OnInit {
   tractatePages = [];
   currentPage = '02';
   audioURL: string;
-  audioState: any = {metadata: {durationSec: 0, duration: 0}, canplay: false, playing: false, time: {timeSec: 0, time: 0},
+  audioState: any = {metadata: {durationSec: 0, duration: 0}, canplay: false, playing: false, time: {timeSec: '', time: ''},
   loadStart: false};
   tractatesMetadata = {
     ברכות: {name: 'Brochos', lastPage: 64}, שבת: {name: 'Shabbos',
@@ -137,7 +137,6 @@ export class TractatePage implements OnInit {
     switch (event.type) {
       case 'canplay':
       return this.audioState.canplay = true;
-
       case 'loadedmetadata':
         return this.audioState.metadata = {
           duration: this.audioService.formatTime(
@@ -162,6 +161,7 @@ export class TractatePage implements OnInit {
         };
 
       case 'loadstart':
+        this.audioState.canplay = false;
         return this.audioState.loadStart = true;
       }
   });
@@ -240,6 +240,10 @@ export class TractatePage implements OnInit {
       }
       this.audioService.seekTo(seekTimes(direction).shortJumpTime);
     }, 100 );
+  }
+
+  ionViewDidLeave() {
+    this.stop();
   }
 
 

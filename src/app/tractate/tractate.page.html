@@ -23,7 +23,7 @@
       </audio> -->
 </ion-content>
 
-<ion-footer *ngIf="audioState.canplay" >
+<ion-footer *ngIf="audioState.canplay || currentPage === '02'" >
     <ion-toolbar color="primary">
         <ion-range min="0" color="light" [max]="audioState.metadata.durationSec" (ionFocus)="onSeekStart()" [value]='audioState.time.timeSec' (ionBlur)='onSeekEnd($event)'
                    name="seekbar" (ionChange)="onSeekChange($event)"  >

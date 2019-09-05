@@ -32,7 +32,7 @@ export class AudioService {
       });
     };
 
-    const removeEvents = function(obj, events, handler) {
+    const removeEvents = (obj, events, handler) => {
       events.forEach(event => {
         obj.removeEventListener(event, handler);
       });
@@ -41,6 +41,7 @@ export class AudioService {
     return Observable.create(observer => {
       // Play audio
       this.audioObj.src = url;
+      this.audioObj.autoplay = true;
       this.audioObj.load();
       this.audioObj.play();
 
@@ -82,4 +83,5 @@ export class AudioService {
   formatTime(time, format) {
     return moment.utc(time).format(format);
   }
+
 }
