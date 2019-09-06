@@ -190,18 +190,18 @@ export class TractatePage implements OnInit {
 
     onSeekStart() {
     this.onSeekState = this.audioState.playing;
-    // if (this.onSeekState) {
-    //   this.pause();
-    // }
+    if (this.onSeekState) {
+      this.pause();
+    }
   }
 
     onSeekEnd(event) {
-    // if (this.onSeekState) {
-    //   this.audioService.seekTo(event.target.value);
-    //   this.play();
-    // } else {
+    if (this.onSeekState) {
       this.audioService.seekTo(event.target.value);
-    // }
+      this.play();
+    } else {
+      this.audioService.seekTo(event.target.value);
+    }
   }
 
     reset() {
