@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChildren } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import {AudioService} from './audio.service';
-
+import {IonButton} from '@ionic/angular';
 
 @Component({
   selector: 'app-tractate',
@@ -10,6 +10,7 @@ import {AudioService} from './audio.service';
   styleUrls: ['./tractate.page.scss'],
 })
 export class TractatePage implements OnInit {
+  @ViewChildren('seeker-button') SeekButton: IonButton;
   tractate: string;
   onSeekState: boolean;
   timerId: any;
@@ -18,7 +19,7 @@ export class TractatePage implements OnInit {
   tractatePages = [];
   currentPage = '02';
   audioURL: string;
-  audioState: any = {metadata: {durationSec: 0, duration: 0}, canplay: false, playing: false, time: {timeSec: '', time: '00:00:00'},
+  audioState: any = {metadata: {durationSec: 0, duration: ''}, canplay: false, playing: false, time: {timeSec: '', time: '00:00:00'},
   loadStart: false};
   tractatesMetadata = {
     ברכות: {name: 'Brochos', lastPage: 64}, שבת: {name: 'Shabbos',
@@ -89,7 +90,6 @@ export class TractatePage implements OnInit {
     private route: ActivatedRoute,
     private loadingController: LoadingController,
     private audioService: AudioService,
-    private changeDetector: ChangeDetectorRef,
     ) { }
 
   ngOnInit() {
@@ -212,14 +212,16 @@ export class TractatePage implements OnInit {
     this.audioService.stop();
   }
 
-  handleSeekButtonsMouseUp(event) {
+  handleSeekButtonsPressup(event) {
+    console.log('mouse up triggered');
     clearInterval(this.timerId);
     if (this.onSeekState) {
       this.play();
     }
   }
 
-  handleSeekButtonsMouseDown(direction) {
+  handleSeekButtonsPress(direction) {
+    console.log('seek button mouse down');
     this.intervalSeek(direction);
   }
 
@@ -230,24 +232,27 @@ export class TractatePage implements OnInit {
     }
     const seekTimes = direction => {
       if (direction === 'forward') {
-      return {longJumpTime: this.audioState.time.timeSec + 15, shortJumpTime: this.audioState.time.timeSec + 2  };
+      return this.audioState.time.timeSec + 2;
       }
-      return {longJumpTime: this.audioState.time.timeSec - 15, shortJumpTime: this.audioState.time.timeSec - 2  };
-  };
+      return  this.audioState.time.timeSec - 2;
+    };
 
-    this.audioJumpTimerId = setTimeout(() => {
-      this.audioService.seekTo(seekTimes(direction).longJumpTime );
-    } , 200);
     this.timerId = setInterval(() => {
-      if (this.audioJumpTimerId) {
-        clearTimeout(this.audioJumpTimerId);
-      }
-      this.audioService.seekTo(seekTimes(direction).shortJumpTime);
+      console.log('set interval');
+      this.audioService.seekTo(seekTimes(direction));
     }, 100 );
   }
 
   ionViewDidLeave() {
     this.stop();
+  }
+
+  rewindJump() {
+    this.audioService.seekTo(this.audioState.time.timeSec - 15);
+  }
+
+  fastForwardJump() {
+    this.audioService.seekTo(this.audioState.time.timeSec + 15);
   }
 
 
