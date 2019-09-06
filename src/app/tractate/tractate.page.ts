@@ -190,18 +190,18 @@ export class TractatePage implements OnInit {
 
     onSeekStart() {
     this.onSeekState = this.audioState.playing;
-    if (this.onSeekState) {
-      this.pause();
-    }
+    // if (this.onSeekState) {
+    //   this.pause();
+    // }
   }
 
     onSeekEnd(event) {
-    if (this.onSeekState) {
+    // if (this.onSeekState) {
+    //   this.audioService.seekTo(event.target.value);
+    //   this.play();
+    // } else {
       this.audioService.seekTo(event.target.value);
-      this.play();
-    } else {
-      this.audioService.seekTo(event.target.value);
-    }
+    // }
   }
 
     reset() {
@@ -212,7 +212,7 @@ export class TractatePage implements OnInit {
     this.audioService.stop();
   }
 
-  handleSeekButtonsPressup(event) {
+  handleSeekButtonsPressup() {
     console.log('mouse up triggered');
     clearInterval(this.timerId);
     if (this.onSeekState) {
