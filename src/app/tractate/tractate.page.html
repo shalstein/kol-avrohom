@@ -25,18 +25,19 @@
 
 <ion-footer *ngIf="audioState.canplay || currentPage === '02'" >
     <ion-toolbar color="primary">
-        <ion-range min="0" color="light" [max]="audioState.metadata.durationSec" (ionFocus)="onSeekStart()" [value]='audioState.time.timeSec' (ionBlur)='onSeekEnd($event)'
+      <div  >
+        <ion-range (click)='onSeekEnd($event)'  min="0" color="light" [max]="audioState.metadata.durationSec"  [value]='audioState.time.timeSec'
                    name="seekbar" (ionChange)="onSeekChange($event)"  >
           <ion-label color="light" slot='start'>{{audioState.time.time}}</ion-label>
           <ion-label color="light" slot='end'>{{ audioState.metadata.duration }}</ion-label>
-        </ion-range>
+        </ion-range> </div>
       </ion-toolbar>
     
       <ion-toolbar color="primary" padding>
         <ion-grid>
           <ion-row align-items-center id="media-controls">
-            <ion-col>
-            <ion-button class='seek-button' name="rewind"   fill='clear' (pressup)='handleSeekButtonsPressup()' (press)="handleSeekButtonsPress('backward')" (tap)='rewindJump()'   >
+            <ion-col >
+            <ion-button (pressup)='handleSeekButtonsPressup()' (mouseup)='handleSeekButtonsPressup()' class='seek-button' name="rewind"   fill='clear'  (mouseleave)='handleSeekButtonsPressup()' (press)="handleSeekButtonsPress('backward')" (tap)='rewindJump()'   >
               <ion-icon name='rewind'  color="light" > </ion-icon>
             </ion-button>
             </ion-col>
@@ -50,8 +51,8 @@
               <ion-icon color="light" name="pause"></ion-icon>
             </ion-button>
             </ion-col>
-            <ion-col>
-            <ion-button (pressup)='handleSeekButtonsPressup()' (tap)='fastForwardJump()' (press)='handleSeekButtonsPress("forward")'   fill='clear'  >
+            <ion-col  >
+            <ion-button (pressup)='handleSeekButtonsPressup()'  (tap)='fastForwardJump()' (press)='handleSeekButtonsPress("forward")'   fill='clear' (mouseleave)='handleSeekButtonsPressup()' >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
             </ion-col>
