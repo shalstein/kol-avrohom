@@ -44,7 +44,6 @@ export class AudioService {
       this.audioObj.preload = 'metadata';
       this.audioObj.autoplay = !options.isLoadedOnly;
       this.audioObj.load();
-      console.log(this.audioObj)
 
       // Media Events
       const handler = (event) =>  observer.next(event);
@@ -83,6 +82,8 @@ export class AudioService {
 
   seekTo(seconds) {
     this.audioObj.currentTime = seconds;
+    console.log('audio service seekTo set to: ');
+    console.log(this.audioObj.currentTime);
   }
 
   formatTime(time, format) {

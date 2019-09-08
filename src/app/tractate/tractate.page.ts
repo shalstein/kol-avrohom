@@ -126,6 +126,10 @@ export class TractatePage implements OnInit {
     }
   }
 
+  handleTap(event) {
+    console.log(event)
+    
+  }
   loadStream(url) {
     this.resetState();
     this.audioService.loadStream(url).subscribe(this.handleAudioStream);
@@ -188,7 +192,8 @@ export class TractatePage implements OnInit {
     this.audioState.time.time = this.audioService.formatTime(event.target.value * 1000, 'HH:mm:ss');
   }
 
-    onSeekStart() {
+  onSeekStart() {
+    console.log('seekStart calld');
     this.onSeekState = this.audioState.playing;
     if (this.onSeekState) {
       this.pause();
@@ -196,12 +201,16 @@ export class TractatePage implements OnInit {
   }
 
     onSeekEnd(event) {
-    if (this.onSeekState) {
+      console.log('on seek end called')
+      this.onSeekStart();
+      if (this.onSeekState) {
       this.audioService.seekTo(event.target.value);
       this.play();
     } else {
       this.audioService.seekTo(event.target.value);
     }
+      console.log('on seek end - blur range event triggered', this.audioState.time.timeSec);
+
   }
 
     reset() {
@@ -213,15 +222,16 @@ export class TractatePage implements OnInit {
   }
 
   handleSeekButtonsPressup() {
-    console.log('mouse up triggered');
-    clearInterval(this.timerId);
+    console.log('press up triggered');
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
     if (this.onSeekState) {
       this.play();
     }
   }
 
   handleSeekButtonsPress(direction) {
-    console.log('seek button mouse down');
     this.intervalSeek(direction);
   }
 
