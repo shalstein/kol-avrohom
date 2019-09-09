@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import {AudioService} from './audio.service';
@@ -13,8 +13,6 @@ export class TractatePage implements OnInit {
   @ViewChildren('seeker-button') SeekButton: IonButton;
   tractate: string;
   onSeekState: boolean;
-  timerId: any;
-  audioJumpTimerId: any;
   tractateEnglishName: string;
   tractatePages = [];
   currentPage = '02';
@@ -126,10 +124,6 @@ export class TractatePage implements OnInit {
     }
   }
 
-  handleTap(event) {
-    console.log(event)
-    
-  }
   loadStream(url) {
     this.resetState();
     this.audioService.loadStream(url).subscribe(this.handleAudioStream);
@@ -193,23 +187,20 @@ export class TractatePage implements OnInit {
   }
 
   onSeekStart() {
-    console.log('seekStart calld');
     this.onSeekState = this.audioState.playing;
     if (this.onSeekState) {
       this.pause();
     }
   }
 
+
     onSeekEnd(event) {
-      console.log('on seek end called')
-      this.onSeekStart();
       if (this.onSeekState) {
       this.audioService.seekTo(event.target.value);
       this.play();
     } else {
       this.audioService.seekTo(event.target.value);
     }
-      console.log('on seek end - blur range event triggered', this.audioState.time.timeSec);
 
   }
 
@@ -219,38 +210,6 @@ export class TractatePage implements OnInit {
 
     resetState() {
     this.audioService.stop();
-  }
-
-  handleSeekButtonsPressup() {
-    console.log('press up triggered');
-    if (this.timerId) {
-      clearInterval(this.timerId);
-    }
-    if (this.onSeekState) {
-      this.play();
-    }
-  }
-
-  handleSeekButtonsPress(direction) {
-    this.intervalSeek(direction);
-  }
-
-  intervalSeek(direction) {
-    this.onSeekState = this.audioState.playing;
-    if (this.onSeekState) {
-      this.pause();
-    }
-    const seekTimes = direction => {
-      if (direction === 'forward') {
-      return this.audioState.time.timeSec + 2;
-      }
-      return  this.audioState.time.timeSec - 2;
-    };
-
-    this.timerId = setInterval(() => {
-      console.log('set interval');
-      this.audioService.seekTo(seekTimes(direction));
-    }, 100 );
   }
 
   ionViewDidLeave() {

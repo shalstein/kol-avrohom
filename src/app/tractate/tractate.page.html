@@ -13,31 +13,27 @@
 
 
 
-<ion-content id="tractate-content" padding>
+<ion-content id="tractate-content" class='ion-padding'>
       <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange()" interface='action-sheet'>
-        <ion-select-option slot='end' text-center [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
+        <ion-select-option slot='end' class='ion-text-center' [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
       </ion-select>
-      <!-- <audio preload='metadata' [autoplay]='isAutoplay' id="audio-player" #audioPlayer controls>
-          <source [src]="this.audioURL" type='audio/mp3' >
-            <p>Your browser doesn't support HTML5 audio. Here is a <a [href]="this.audioURL">link to the audio</a> instead.</p>
-      </audio> -->
 </ion-content>
 
 <ion-footer *ngIf="audioState.canplay || currentPage === '02'" >
     <ion-toolbar color="primary">
       <div  >
         <ion-range (click)='onSeekEnd($event)'  min="0" color="light" [max]="audioState.metadata.durationSec"  [value]='audioState.time.timeSec'
-                   name="seekbar" (ionChange)="onSeekChange($event)"  >
+                   name="seekbar" (ionChange)="onSeekChange($event)" >
           <ion-label color="light" slot='start'>{{audioState.time.time}}</ion-label>
           <ion-label color="light" slot='end'>{{ audioState.metadata.duration }}</ion-label>
         </ion-range> </div>
       </ion-toolbar>
     
-      <ion-toolbar color="primary" padding>
+      <ion-toolbar color="primary" class='ion-padding' >
         <ion-grid>
-          <ion-row align-items-center id="media-controls">
+          <ion-row class='ion-align-items-center' id="media-controls">
             <ion-col >
-            <ion-button (pressup)='handleSeekButtonsPressup()' (mouseup)='handleSeekButtonsPressup()' class='seek-button' name="rewind"   fill='clear'  (mouseleave)='handleSeekButtonsPressup()' (press)="handleSeekButtonsPress('backward')" (tap)='rewindJump()'   >
+            <ion-button [disabled]='audioState.time.timeSec === 0' class='seek-button' name="rewind" fill='clear'  (click)='rewindJump()' >
               <ion-icon name='rewind'  color="light" > </ion-icon>
             </ion-button>
             </ion-col>
@@ -52,7 +48,7 @@
             </ion-button>
             </ion-col>
             <ion-col  >
-            <ion-button (pressup)='handleSeekButtonsPressup()'  (tap)='fastForwardJump()' (press)='handleSeekButtonsPress("forward")'   fill='clear' (mouseleave)='handleSeekButtonsPressup()' >
+            <ion-button [disabled]='audioState.time.timeSec === audioState.metadata.durationSec' (click)='fastForwardJump()'   fill='clear' >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
             </ion-col>

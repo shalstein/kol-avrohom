@@ -52,7 +52,7 @@
 
 
     <ion-list  id="select-daf" lines='full' *ngIf="segmentValue === 'selectDaf'">
-         <ion-item  class="daf-option" [routerLink]="['/tractates', seder]" text-center padding-right padding-left ion-item text-center  block outline detail='false'  *ngFor="let seder of sedarim"  >
+         <ion-item  class="daf-option" [routerLink]="['/tractates', seder]" class='padding-right padding-left ion-item ion-text-center'  block fill='outline' detail='false'  *ngFor="let seder of sedarim"  >
               <ion-label><strong>{{ seder }}</strong></ion-label>
         </ion-item>  
     </ion-list>

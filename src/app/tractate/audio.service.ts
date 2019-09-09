@@ -82,8 +82,6 @@ export class AudioService {
 
   seekTo(seconds) {
     this.audioObj.currentTime = seconds;
-    console.log('audio service seekTo set to: ');
-    console.log(this.audioObj.currentTime);
   }
 
   formatTime(time, format) {
