@@ -188,7 +188,7 @@ export class TractatePage implements OnInit {
     this.audioState.time.time = this.audioService.formatTime(event.target.value * 1000, 'HH:mm:ss');
   }
 
-    onSeekStart() {
+  onSeekStart() {
     this.onSeekState = this.audioState.playing;
     if (this.onSeekState) {
       this.pause();
@@ -196,7 +196,8 @@ export class TractatePage implements OnInit {
   }
 
     onSeekEnd(event) {
-    if (this.onSeekState) {
+      this.onSeekStart();
+      if (this.onSeekState) {
       this.audioService.seekTo(event.target.value);
       this.play();
     } else {
@@ -212,8 +213,10 @@ export class TractatePage implements OnInit {
     this.audioService.stop();
   }
 
-  handleSeekButtonsMouseUp(event) {
-    clearInterval(this.timerId);
+  handleSeekButtonsPressup() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
     if (this.onSeekState) {
       this.play();
     }
@@ -239,10 +242,7 @@ export class TractatePage implements OnInit {
       this.audioService.seekTo(seekTimes(direction).longJumpTime );
     } , 200);
     this.timerId = setInterval(() => {
-      if (this.audioJumpTimerId) {
-        clearTimeout(this.audioJumpTimerId);
-      }
-      this.audioService.seekTo(seekTimes(direction).shortJumpTime);
+      this.audioService.seekTo(seekTimes(direction));
     }, 100 );
   }
 

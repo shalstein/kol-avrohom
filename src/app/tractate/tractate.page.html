@@ -35,8 +35,8 @@
       <ion-toolbar color="primary" padding>
         <ion-grid>
           <ion-row align-items-center id="media-controls">
-            <ion-col>
-            <ion-button name="rewind"   fill='clear' (mouseup)='handleSeekButtonsMouseUp($event)' (mousedown)="handleSeekButtonsMouseDown('backward')"   >
+            <ion-col >
+            <ion-button (mouseup)='handleSeekButtonsPressup()' class='seek-button' name="rewind"   fill='clear'  (mouseleave)='handleSeekButtonsPressup()' (press)="handleSeekButtonsPress('backward')" (tap)='rewindJump()'   >
               <ion-icon name='rewind'  color="light" > </ion-icon>
             </ion-button>
             </ion-col>
@@ -50,8 +50,8 @@
               <ion-icon color="light" name="pause"></ion-icon>
             </ion-button>
             </ion-col>
-            <ion-col>
-            <ion-button (mouseup)='handleSeekButtonsMouseUp()' (mousedown)='handleSeekButtonsMouseDown("forward")'   fill='clear'  >
+            <ion-col  >
+            <ion-button (mouseup)='handleSeekButtonsPressup()' (tap)='fastForwardJump()' (press)='handleSeekButtonsPress("forward")'   fill='clear' (mouseleave)='handleSeekButtonsPressup()' >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
             </ion-col>
