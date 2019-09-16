@@ -21,14 +21,12 @@
 
 <ion-footer *ngIf="audioState.canplay || currentPage === '02'" >
     <ion-toolbar color="primary">
-      <div  >
         <ion-range (click)='onSeekEnd($event)'  min="0" color="light" [max]="audioState.metadata.durationSec"  [value]='audioState.time.timeSec'
                    name="seekbar" (ionChange)="onSeekChange($event)" >
           <ion-label color="light" slot='start'>{{audioState.time.time}}</ion-label>
           <ion-label color="light" slot='end'>{{ audioState.metadata.duration }}</ion-label>
-        </ion-range> </div>
+        </ion-range>
       </ion-toolbar>
-    
       <ion-toolbar color="primary" class='ion-padding' >
         <ion-grid>
           <ion-row class='ion-align-items-center' id="media-controls">
@@ -51,6 +49,8 @@
             <ion-button [disabled]='audioState.time.timeSec === audioState.metadata.durationSec' (click)='fastForwardJump()'   fill='clear' >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
+            <div id="playback-speed-button">1x</div>
+
             </ion-col>
           </ion-row>
         </ion-grid>
