@@ -16,6 +16,14 @@
         top: 31%;
         display: inline-block;
     }
+
+    #playback-speed-select {
+        top: -36%;
+        left: 81%;
+        position: absolute;
+        width: 4em;
+        background-color: inherit;
+    }
     
     .action-sheet-button-inner {
         direction: rtl;

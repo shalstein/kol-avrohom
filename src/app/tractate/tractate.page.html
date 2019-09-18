@@ -49,8 +49,12 @@
             <ion-button [disabled]='audioState.time.timeSec === audioState.metadata.durationSec' (click)='fastForwardJump()'   fill='clear' >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
-            <div id="playback-speed-button">1x</div>
-
+            <!-- <div id="playback-speed-button"> -->
+            <ion-select interface='popover' id="playback-speed-select" value='1'>
+              <ion-select-option value="1">1x</ion-select-option>
+              <ion-select-option value="1.7">1.7x</ion-select-option>
+            </ion-select>
+            <!-- </div> -->
             </ion-col>
           </ion-row>
         </ion-grid>
