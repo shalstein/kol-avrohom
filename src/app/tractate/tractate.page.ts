@@ -104,6 +104,16 @@ export class TractatePage implements OnInit {
     }
   }
 
+  ionViewDidEnter() {
+    const ionSelects = document.querySelectorAll('ion-select');
+    ionSelects.forEach((sel) => {
+      sel.shadowRoot.querySelectorAll('.select-icon-inner')
+        .forEach((elem) => {
+          elem.setAttribute('style', 'display: none;');
+        });
+    });
+  }
+
 
   handleSelectDafChange = async () => {
     const loading = await this.loadingController.create({
