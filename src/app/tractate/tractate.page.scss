@@ -2,7 +2,7 @@
         direction: rtl;
     }
 
-    ion-select {
+    #daf-select {
         width: 10em;
         margin: 1em auto;
         background-color: whitesmoke;
@@ -10,26 +10,16 @@
         font-size: 1.5em;
     }
 
-    #playback-speed-button {
-        position: absolute;
-        left: 100%;
-        top: 31%;
-        display: inline-block;
-    }
 
-
-
-    #playback-speed-select {
-        top: 37%;
-        left: 69%;
-        position: absolute;
+    #playback-speed-selectx {
         width: 4em;
         background-color: inherit;
-        font-size: 1em;
         margin: 0px;
         padding: 0px;
+        position: relative;
+        left: 85%;
     }
-    
+
     .action-sheet-button-inner {
         direction: rtl;
         text-align: right;
@@ -40,11 +30,6 @@
     }
 
     $app-direction: multi; // Both RTL and LTR
-
-    // ion-icon {
-    //     font-size: 2.5rem;
-    // }
-
      
     #media-controls {
         ion-col {

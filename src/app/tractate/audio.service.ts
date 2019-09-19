@@ -88,4 +88,8 @@ export class AudioService {
     return moment.utc(time).format(format);
   }
 
+  setPlaybackSpeed(speed) {
+    this.audioObj.playbackRate = speed;
+  }
+
 }

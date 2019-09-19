@@ -14,7 +14,7 @@
 
 
 <ion-content id="tractate-content" class='ion-padding'>
-      <ion-select [(ngModel)]="currentPage" (ionChange)="handleSelectDafChange()" interface='action-sheet'>
+      <ion-select [(ngModel)]="currentPage" id="daf-select" (ionChange)="handleSelectDafChange()" interface='action-sheet'>
         <ion-select-option slot='end' class='ion-text-center' [value]="pageValues[i]" *ngFor="let page of tractatePages; let i = index;" ><strong>דף {{page}} </strong></ion-select-option>
       </ion-select>
 </ion-content>
@@ -49,12 +49,18 @@
             <ion-button [disabled]='audioState.time.timeSec === audioState.metadata.durationSec' (click)='fastForwardJump()'   fill='clear' >
               <ion-icon   color="light" name="fastforward"></ion-icon>
             </ion-button>
-            <!-- <div id="playback-speed-button"> -->
-            <ion-select interface='popover' id="playback-speed-select" value='1'>
-              <ion-select-option value="1">1x</ion-select-option>
-              <ion-select-option value="1.7">1.7x</ion-select-option>
-            </ion-select>
-            <!-- </div> -->
+            </ion-col>
+          </ion-row>
+          <ion-row id="playback-speed-row">
+            <ion-col id="playback-speed-column" >
+                <ion-select interface='popover' #plabackspeedSelectElement (ionChange)='changePlaybackSpeed(plabackspeedSelectElement)' id="playback-speed-selectx" value='1'>
+                    <ion-select-option value="0.5">0.5x</ion-select-option>
+                    <ion-select-option value="0.75">0.75x</ion-select-option>
+                    <ion-select-option value="1">1x</ion-select-option>
+                    <ion-select-option value="1.25">1.25x</ion-select-option>
+                    <ion-select-option value="1.5">1.5x</ion-select-option>
+                    <ion-select-option value="2">2x</ion-select-option>
+                  </ion-select>
             </ion-col>
           </ion-row>
         </ion-grid>
