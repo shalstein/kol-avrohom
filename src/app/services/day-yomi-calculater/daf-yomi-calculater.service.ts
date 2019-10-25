@@ -93,7 +93,7 @@ export class DafYomiCalculaterService {
       {pages: 33, name: 'תמורה'},
       {pages: 27, name: 'כריתות'},
       {pages: 36, name: 'מעילה'},
-      {pages: 72, name: 'נידה'},
+      {pages: 72, name: 'נדה'},
     ];
 
     let tractateNumber;
